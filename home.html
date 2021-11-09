@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        :root {
+            --blue: #287bff;
+            --white: #fff;
+            --grey: #f5f5f5;
+            --black1: #222;
+            --black2: #999;
+
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+        }
+
+        .navigation {
+            position: fixed;
+            width: 300px;
+            height: 100%;
+            background: var(--blue);
+            border-left: 10px;
+            transition: 0.5s;
+            overflow: hidden;
+
+        }
+
+        .navigation.active {
+            width: 100px;
+        }
+
+        .navigation ul {
+            position: absolute;
+            left: 5px;
+            top: 0;
+            width: 100%;
+        }
+
+        .navigation ul li {
+            position: relative;
+            width: 100%;
+            padding-left: 20px;
+            list-style: none;
+            font-weight: 700;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            /* border-left: ; */
+        }
+
+        .navigation ul li:hover,
+        .navigation ul li.hovered {
+            background: var(--white);
+        }
+
+        .navigation ul li:hover a {
+            font-weight: 800;
+        }
+
+        .navigation ul li:nth-child(1) {
+            margin-bottom: 40px;
+            margin-top: 20px;
+            pointer-events: none;
+        }
+
+        .logoimg {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: 0.5s;
+        }
+
+        .logoimg.active {
+
+            width: 40px;
+            height: 40px;
+
+        }
+
+        .navigation ul li a {
+            position: relative;
+            display: block;
+            width: 100%;
+            display: flex;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .navigation ul li:hover a,
+        .navigation ul li.hovered a {
+            color: var(--blue);
+
+        }
+
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            min-height: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: left;
+        }
+
+        .navigation ul li a .icon ion-icon {
+            font-size: 1.5em;
+        }
+
+        .navigation ul li a .title {
+            position: relative;
+            display: block;
+            padding: 0 20px;
+            min-height: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: start;
+        }
+
+        /* curve  outside */
+        .navigation ul li:hover a::before,
+        .navigation ul li.hovered a::before {
+            content: ' ';
+            position: absolute;
+            right: 0;
+            top: -50px;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 100%;
+            box-shadow: 50px 40px 0 30px var(--white);
+            pointer-events: none;
+        }
+
+        .navigation ul li:hover a::after,
+        .navigation ul li.hovered a::after {
+            content: ' ';
+            position: absolute;
+            right: 0;
+            bottom: -50px;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 100%;
+            box-shadow: 50px -40px 0 30px var(--white);
+            pointer-events: none;
+        }
+
+        /*  main */
+
+        .main {
+            position: absolute;
+            width: calc(100% - 300px);
+            left: 300px;
+            min-height: 100vh;
+            background: var(--white);
+            transition: 0.5s;
+        }
+
+        .main.active {
+            width: calc(100% - 80px);
+            left: 70px;
+        }
+
+        .topbar {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .toggle {
+            position: relative;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            cursor: pointer;
+
+        }
+
+        .topbar .text {
+            font-weight: bolder;
+            font-size: 20px;
+            color: var(--black1);
+        }
+
+        .topbar .userprofile {
+            position: relative;
+            margin: 5px;
+        }
+
+        .topbar .userprofile img {
+
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: relative;
+
+        }
+
+        .topbar .userprofile .userdetails {
+            display: none;
+            position: absolute;
+            background: var(--blue);
+            right: 0px;
+            top: 4rem;
+            width: 8em;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            line-height: 20px;
+            transition: 0.5s;
+            z-index: 10000;
+        }
+
+        .topbar .userprofile .userdetails::after {
+            content: ' ';
+            width: 20px;
+            height: 16px;
+            background: var(--blue);
+            position: absolute;
+            right: 16px;
+            top: -1rem;
+            border-top-left-radius: 70px;
+            border-top-right-radius: 70px;
+            z-index: 1;
+        }
+
+        .topbar .userprofile:hover .userdetails {
+            display: block;
+        }
+
+        /* responsive */
+        @media(max-width:800px) {
+            .main.active {
+                width:100%;
+                left: 0px;
+            }
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <img src="./img1.png" alt="logo" class="logoimg" />
+                        </span>
+                        <span class="title" style="font-weight: 700; font-size: 1.2em;">Axis Colleges</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </span>
+                        <span class="title">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="bag-outline"></ion-icon>
+                        </span>
+                        <span class="title">Current Job details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="chevron-up-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Post New Job</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="chevron-up-circle"></ion-icon>
+                        </span>
+                        <span class="title">Update Job details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="lock-open"></ion-icon>
+                        </span>
+                        <span class="title">Change Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="logo-tableau"></ion-icon>
+                        </span>
+                        <span class="title">Upload Video | Audio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="document-attach"></ion-icon>
+                        </span>
+                        <span class="title">Upload Document</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Log-out</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+    <!-- main -->
+
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            <!-- heading -->
+            <div class="text">
+                Axis Alumini Dashboard
+            </div>
+            <div class="userprofile">
+
+
+                <img src="./img3.jpg" alt=""><br />
+                <div class="userdetails">
+                    <span class="name">Rishabh tiwari</span><br />
+                    <span class="batch">2018-22</span><br />
+                    <span class="course">B.tech</span><br />
+                    <span class="curcomp">TCS</span><br />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        //  menu toggle --->
+
+        let toggle = document.querySelector('.toggle');
+        let navigation = document.querySelector('.navigation');
+        let main = document.querySelector('.main');
+        let logoimg = document.querySelector('.logoimg');
+
+        toggle.onclick = function () {
+            navigation.classList.toggle('active');
+            toggle.classList.toggle('active');
+            main.classList.toggle('active');
+            logoimg.classList.toggle('active');
+
+        }
+        //add hover class select list ----->
+        let list = document.querySelectorAll('.navigation li');
+        function activelink() {
+            list.forEach((item) =>
+                item.classList.remove('hovered'));
+            item.classList.add('hovered');
+
+
+        }
+        this.forEach((item) =>
+            item.addEventListener('mouseover', activelink));
+    </script>
+</body>
+
+</html>
