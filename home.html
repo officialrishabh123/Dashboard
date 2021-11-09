@@ -22,7 +22,7 @@
             --grey: #f5f5f5;
             --black1: #222;
             --black2: #999;
-
+            --light-red: #e82a5b;
         }
 
         body {
@@ -234,8 +234,7 @@
             color: white;
             font-weight: 700;
             line-height: 20px;
-            transition: 0.5s;
-            z-index: 10000;
+            transition: 1s;
         }
 
         .topbar .userprofile .userdetails::after {
@@ -258,11 +257,176 @@
         /* responsive */
         @media(max-width:800px) {
             .main.active {
-                width:100%;
+                width: 100%;
                 left: 0px;
             }
         }
-      
+
+
+        /* main content */
+        .maincontent {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            min-height: 100vh;
+           padding:5% 10%;
+            background: #999;
+        }
+        .main .innermainbox{
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+        @media(max-width:800px){
+            .main .innermainbox{
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        }
+        .maincontent .card {
+            position: relative;
+            margin: 10px 80px ;
+            width: 200px;
+            height: 300px;
+            background: #fff;
+            transform-style: preserve-3d;
+            transform: perspective(2000px);
+            transition: 1s;
+            box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.15), 0 20px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:hover {
+            transform: perspective(2000px) translate(50%);
+            box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.15);
+
+        }
+        .card:nth-child(1)::before{
+            content: 'Certificates';
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            z-index: 10;
+            bottom: 0;
+            background: var(--black1);
+            text-align: center;
+            font-size: 18px;
+            padding: 5px 0;
+            text-transform:capitalize;
+             font-weight: 700;
+            color: rgb(245, 209, 9);
+            
+            overflow-x: hidden;
+        }
+        .card:nth-child(2)::before{
+            content: 'achivements';
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            z-index: 10;
+            bottom: 0;
+            background: var(--black1);
+            text-align: center;
+            font-size: 18px;
+            padding: 5px 0;
+            text-transform:capitalize;
+             font-weight: 700;
+            color: rgb(245, 209, 9);
+            
+            overflow-x: hidden;
+        }
+        .card .cover {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            overflow: hidden;
+            transition: 1s ease-in-out;
+            transform-origin: left;
+        }
+
+        .card:hover .cover {
+            transform: rotateY(-180deg);
+            /* background: #47bfce; */
+            transition: 1s;
+        }
+
+        .card .cover img {
+            max-width: 100%;
+            z-index: 1;
+            background-size: cover;
+        }
+
+        .card .cover::before {
+            content: " ";
+            position: absolute;
+            width: 10px;
+            height: 150%;
+            background: white;
+            transform: rotate(36.5deg);
+            box-shadow: 0 0 0 20px #47bfce;
+            transition: 0.5s;
+            transition-delay: 1s;
+        }
+
+        .card:hover .cover::before {
+            width: 0px;
+            box-shadow: 0 0 0 250px #47bfce;
+            transform: rotate(143.5deg);
+            transition: 1s;
+        }
+
+        .card .details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* padding: 10px; */
+            overflow: hidden;
+            z-index: 1;
+        }
+        .card .details .innerdetails{
+            padding: 10px;
+            font-size: 18px;
+            color: var(--light-red);
+        }
+        .card .details .innerdetails input[type=text]{
+            padding: 6px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 10px;
+            border:1px  solid var(--blue);
+            margin: 20px 0;
+            color: var(--light-red);
+            font-weight: 700;
+        }
+        .card .details .innerdetails .submit{
+            width:100%;
+            display: flex;
+            justify-content: center;
+        }
+        .card .details .innerdetails input[type=submit]{
+            padding: 6px;
+            font-size: 16px;
+            width: 60%;
+            border-radius: 10px;
+            border:none;
+            background: var(--blue);
+            margin: 20px 0;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+        .card:hover #precer {
+            transform: rotateY(180deg);
+
+        }
     </style>
 </head>
 
@@ -371,6 +535,68 @@
 
 
                 </div>
+            </div>
+        </div>
+        <div class="maincontent">
+            <div class="innermainbox">
+                <div class="card">
+                    <div class="cover">
+                        <img src="./certifications.svg" id="precer" alt="">
+                    </div>
+                    <div class="details">
+                        <div class="innerdetails">
+                            <div>
+                                <h3>Upload Certificates</h3>
+                            </div>
+                            <div class="form">
+                                <form action="">
+                                    <div class="rollno">
+                                        <input type="text" placeholder=" Enter Your Roll NO">
+                                    </div>
+                                    <div class="upload">
+                                        <input type="file" name="" id="">
+                                    </div>
+                                    <div class="submit">
+                                        <input type="submit" value="submit">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                 
+                </div>
+                <div class="card">
+                    
+                    <div class="cover">
+                      
+                        <img src="./achivement.jpg" id="precer" alt="">
+                    </div>
+                    <div class="details">
+                        <div class="innerdetails">
+                            <div>
+                                <h3>Upload Achivements</h3>
+                            </div>
+                            <div class="form">
+                                <form action="">
+                                    <div class="rollno">
+                                        <input type="text" placeholder=" Enter Your Roll NO">
+                                    </div>
+                                    <div class="upload">
+                                        <input type="file" name="" id="">
+                                    </div>
+                                    <div class="submit">
+                                        <input type="submit" value="submit">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                 
+                </div>
+               
+               
             </div>
         </div>
     </div>
