@@ -43,7 +43,7 @@
             border-left: 10px;
             transition: 0.5s;
             overflow: hidden;
-
+            /* z-index: 100000; */
         }
 
         .navigation.active {
@@ -173,6 +173,7 @@
             min-height: 100vh;
             background: var(--white);
             transition: 0.5s;
+            overflow-x: hidden;
         }
 
         .main.active {
@@ -272,6 +273,7 @@
             min-height: 100vh;
            padding:5% 10%;
             background: #999;
+            z-index: 10;
         }
         .main .innermainbox{
             display: grid;
